@@ -36,6 +36,7 @@ var addon = ac(app);
 var port = addon.config.port();
 // Declares the environment to use in `config.json`
 var devEnv = app.get('env') == 'production';
+//var devEnv = app.get('env') == 'development';
 
 // The following settings applies to all environments
 app.set('port', port);
