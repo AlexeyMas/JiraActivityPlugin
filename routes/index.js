@@ -34,8 +34,8 @@ module.exports = function (app, addon) {
         res.render('activity', { title: "JIRA activity" });
     });
 
-    app.get('/installed', function (req, res) {
-        res.status(200);
+    app.get('/installed', addon.authenticate(), function (req, res) {
+        res.writeHead(200, {'Content-Type': 'text/event-stream'});
     });
 
     // load any additional files you have in routes and apply those to the app
