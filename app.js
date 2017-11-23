@@ -12,6 +12,10 @@ var morgan = require('morgan');
 // You need to load `atlassian-connect-express` to use her godly powers
 var ac = require('atlassian-connect-express');
 // Static expiry middleware to help serve static resources efficiently
+
+//process.env.NODE_ENV = 'production';
+
+
 process.env.PWD = process.env.PWD || process.cwd(); // Fix expiry on Windows :(
 var expiry = require('static-expiry');
 // We use [Handlebars](http://handlebarsjs.com/) as our view engine
@@ -35,8 +39,8 @@ var addon = ac(app);
 // You can set this in `config.json`
 var port = addon.config.port();
 // Declares the environment to use in `config.json`
-var devEnv = app.get('env') == 'production';
-//var devEnv = app.get('env') == 'development';
+//var devEnv = app.get('env') == 'production';
+var devEnv = app.get('env') == 'development';
 
 // The following settings applies to all environments
 app.set('port', port);
