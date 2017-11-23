@@ -42,6 +42,8 @@ $(function() {
                 projHeadRow.append("th").text("Board");
                 projHeadRow.append("th").text("Issue Type");
                 projHeadRow.append("th").text("Time Spend");
+                projHeadRow.append("th").text("Time to Deadline");
+
                 return projTable.append("tbody");
             }
 
@@ -49,7 +51,6 @@ $(function() {
 
             var rootElement = d3.select(selector);
             var projBody = buildTableAndReturnTbody(rootElement);
-
             for (var i= 0; i<issue.length; i++) {
 
                 var domBody = projBody[0][0];
@@ -57,8 +58,16 @@ $(function() {
                 var today = new Date();
                 var createdDate = new Date(issue[i].fields.created);
                 var timespend = Math.abs(today - createdDate) / 36e5;
+                var dueDate =  new Date(issue[i].fields.customfield_10056);
+
+                var timeDiff = Math.abs(dueDate.getTime() - today.getTime());
+                var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+                var cell8 = row.insertCell(0);
+                cell8.innerHTML = diffDays + ' d';
+
                 var cell7 = row.insertCell(0);
-                cell7.innerHTML = timespend.toFixed(2);
+                cell7.innerHTML = timespend.toFixed(2) + ' h';
 
                 var cell1 = row.insertCell(0);
                 cell1.innerHTML = issue[i].fields.issuetype.name;
